@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С Днём Рождения 🎀</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nothing+You+Could+Do&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #fce8f0;
+  --bg2:      #fdd6e7;
+  --rose:     #e0507a;
+  --rose2:    #c9325a;
+  --rosemid:  #eb7fa0;
+  --roselight:#f4aec5;
+  --rosepale: #fde4ef;
+  --ink:      #7a2040;
+  --inksoft:  #b5567a;
+  --cream:    #fff5f9;
+  --border:   rgba(224,80,122,.25);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); font-family: 'Caveat', cursive; color: var(--ink); overflow-x: hidden; }
+
+/* ── FLOATING DECO ── */
+.deco-float {
+  position: fixed; pointer-events: none; z-index: 0; font-size: 1.3rem;
+  animation: floatDeco var(--fd, 9s) var(--fdl, 0s) ease-in-out infinite alternate;
+  opacity: .55;
+}
+@keyframes floatDeco {
+  0%   { transform: translateY(0) rotate(var(--fr,0deg)) scale(1); }
+  100% { transform: translateY(-22px) rotate(calc(var(--fr,0deg) + 12deg)) scale(1.12); }
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #fde8f4 0%, #fcd3e8 40%, #f9c5e0 70%, #fde0ee 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; padding: 4rem 2rem 2rem; overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 40% at 20% 30%, rgba(255,255,255,.55) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 35% at 80% 70%, rgba(255,200,225,.5) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,230,242,.35) 0%, transparent 70%);
+}
+.hero::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:120px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events:none;
+}
+
+.petal { position:absolute; opacity:0; pointer-events:none;
+  animation: floatPetal var(--pd,9s) var(--pdl,0s) infinite ease-in-out; }
+@keyframes floatPetal {
+  0%   { opacity:0; transform:translateY(0) rotate(0deg) scale(.7); }
+  15%  { opacity:.8; }
+  85%  { opacity:.5; }
+  100% { opacity:0; transform:translateY(-150px) rotate(380deg) scale(1); }
+}
+.spark { position:absolute; border-radius:50%; opacity:0; pointer-events:none;
+  animation: twinkle var(--d,4s) var(--dl,0s) infinite ease-in-out; }
+@keyframes twinkle { 0%,100%{opacity:0;transform:scale(.4)} 50%{opacity:1;transform:scale(1)} }
+
+.hero-eyebrow { font-family:'Cormorant Garamond',serif; font-size:clamp(.75rem,2vw,.95rem); letter-spacing:.55em; text-transform:uppercase; color:var(--rosemid); opacity:0; animation:fadeUp .8s .2s forwards; margin-bottom:.8rem; display:block; }
+.hero-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
+  font-size:clamp(3.5rem,16vw,9rem); line-height:.95; text-align:center;
+  background: linear-gradient(145deg, #d43070 0%, #e8608a 35%, #f490b0 60%, #d43070 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  opacity:0; animation:fadeUp 1s .4s forwards; filter: drop-shadow(0 2px 8px rgba(200,50,100,.2));
+}
+.hero-name { font-family:'Nothing You Could Do',cursive; font-size:clamp(1.8rem,8vw,4rem); color:var(--rose); opacity:0; animation:fadeUp 1s .65s forwards; margin-top:.4rem; text-align:center; display:block; text-shadow:0 1px 8px rgba(200,50,100,.18); }
+.hero-line { display:flex; align-items:center; gap:1rem; opacity:0; animation:fadeUp .8s .85s forwards; margin:.9rem 0; }
+.hline { height:1px; width:80px; background:linear-gradient(90deg,transparent,var(--roselight),transparent); }
+.hdiamond { width:7px;height:7px; background:var(--rosemid); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1rem,3.5vw,1.5rem); color:var(--inksoft); text-align:center; max-width:460px; opacity:0; animation:fadeUp .8s 1.05s forwards; display:block; }
+.scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.9rem; letter-spacing:.15em; color:var(--roselight); opacity:0; animation:fadeUp .8s 1.5s forwards; text-align:center; cursor:pointer; z-index:2; }
+.arrow-down { margin:.4rem auto 0; width:14px;height:14px; border-right:1.5px solid var(--rosemid); border-bottom:1.5px solid var(--rosemid); transform:rotate(45deg); animation:bounce 1.6s infinite; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+@keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
+@keyframes heartbeat { 0%,100%{transform:scale(1)} 30%{transform:scale(1.35)} 60%{transform:scale(1.1)} }
+@keyframes popIn { from{opacity:0;transform:scale(0) rotate(-10deg)} to{opacity:1} }
+@keyframes wiggle { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+
+/* ── DIVIDER ── */
+.divider { text-align:center; padding:1.5rem 0 .5rem; font-size:1.4rem; letter-spacing:.4rem; color:var(--roselight); }
+
+/* ── FRAMES SECTION ── */
+.frames-section {
+  background: linear-gradient(180deg, var(--bg) 0%, #fce4ef 30%, var(--bg2) 60%, var(--bg) 100%);
+  padding: 3rem 1rem 8rem;
+  display: flex; flex-direction:column; align-items:center; gap:6rem;
+  position:relative;
+}
+.frames-section::before {
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.18;
+  background-image:
+    radial-gradient(circle, var(--rose) 1px, transparent 1px),
+    radial-gradient(circle, var(--roselight) 1px, transparent 1px);
+  background-size: 38px 38px, 19px 19px;
+  background-position: 0 0, 9px 9px;
+}
+
+.reveal { opacity:0; transform:translateY(55px) rotate(var(--rot,0deg)); transition:opacity .9s ease,transform .9s ease; }
+.reveal.visible { opacity:1; transform:translateY(0) rotate(var(--rot,0deg)); }
+
+.photo-frame {
+  width:100%; height:100%;
+  object-fit: cover;
+  position: absolute; inset: 0;
+  display: block;
+}
+.photo-wrap {
+  position: relative; overflow: hidden;
+}
+
+.tape { position:absolute; border-radius:2px; z-index:10; }
+.tape-pink   { background:rgba(244,174,197,.6); }
+.tape-lilac  { background:rgba(210,185,230,.55); }
+.tape-mint   { background:rgba(180,225,210,.55); }
+
+.heart-sticker { position:absolute; font-size:1.4rem; z-index:12; pointer-events:none; filter:drop-shadow(0 1px 4px rgba(200,50,100,.2)); animation: popIn .5s forwards; }
+
+.frame-caption { font-family:'Nothing You Could Do',cursive; font-size:1.25rem; color:var(--inksoft); text-align:center; margin-top:.7rem; display:block; }
+
+/* ══ POLAROID ══ */
+.polaroid { background:var(--cream); padding:13px 13px 54px; box-shadow:3px 6px 28px rgba(180,50,90,.18), 0 0 0 1px rgba(224,80,122,.1); width:100%; max-width:320px; position:relative; border-radius:2px; }
+.polaroid .photo-wrap { aspect-ratio:1; background:#fde8f3; }
+.pol-caption { position:absolute; bottom:10px; left:0;right:0; text-align:center; font-family:'Nothing You Could Do',cursive; font-size:1.2rem; color:var(--inksoft); }
+
+/* ══ FILM ══ */
+.film-wrap { background:#f9e4ef; border-radius:4px; padding:0 10px; box-shadow:4px 6px 28px rgba(180,50,90,.18); width:100%; max-width:360px; position:relative; border:1px solid rgba(224,80,122,.15); }
+.film-holes { display:flex; justify-content:space-around; padding:7px 0; }
+.fhole { width:13px;height:11px; background:rgba(224,80,122,.15); border-radius:2px; }
+.film-photo { width:100%; aspect-ratio:3/2; background:#fce0ee; position:relative; overflow:hidden; }
+
+/* ══ NOTE CARD ══ */
+.note-card { background:var(--cream); border:1.5px solid rgba(224,80,122,.2); padding:2rem 1.8rem 2.4rem; width:100%; max-width:330px; position:relative; box-shadow:3px 5px 24px rgba(180,50,90,.15); border-radius:3px; }
+.note-ruled { position:absolute;inset:0; background-image:repeating-linear-gradient(transparent,transparent 31px,rgba(224,80,122,.12) 31px,rgba(224,80,122,.12) 32px); pointer-events:none; border-radius:3px; }
+.note-photo { width:100%; aspect-ratio:1; background:#fde8f3; position:relative; overflow:hidden; margin-bottom:1rem; border:1px dashed rgba(224,80,122,.3); }
+.note-text { font-family:'Nothing You Could Do',cursive; font-size:1.3rem; line-height:1.85; color:var(--ink); position:relative; }
+.stamp { position:absolute;bottom:1rem;right:1rem;width:52px;height:62px;border:2px solid var(--rosemid);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-size:.6rem;background:rgba(253,220,238,.6);padding:3px;color:var(--inksoft);transform:rotate(5deg); }
+.stamp span { font-size:1.5rem;display:block; }
+
+/* ══ ENVELOPE FRAME (с кликабельным фото) ══ */
+.envelope-card {
+  background:var(--cream);
+  border:1.5px solid rgba(224,80,122,.2);
+  padding:1.5rem 1.5rem 2rem;
+  box-shadow:3px 5px 26px rgba(180,50,90,.15);
+  position:relative;
+  width:100%; max-width:360px;
+  border-radius:3px;
+  overflow:hidden;
+}
+.envelope-card::before {
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  border-left:180px solid transparent;
+  border-right:180px solid transparent;
+  border-top:68px solid rgba(244,174,197,.3);
+  pointer-events:none;
+}
+.env-photo {
+  width:100%;aspect-ratio:4/3;background:#fde8f3;
+  position:relative;overflow:hidden;margin-top:3rem;
+  border:1px solid rgba(224,80,122,.15);
+  cursor:pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.env-photo:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 24px rgba(180,50,90,.22);
+}
+.env-photo-hint {
+  position:absolute;
+  bottom:0;left:0;right:0;
+  background:linear-gradient(transparent, rgba(200,50,90,.45));
+  color:#fff;
+  font-family:'Nothing You Could Do',cursive;
+  font-size:1.1rem;
+  text-align:center;
+  padding:.6rem .5rem .5rem;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .3s;
+}
+.env-photo:hover .env-photo-hint { opacity:1; }
+.env-wax { position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:2rem;z-index:15; }
+
+/* ══ INSTAX ══ */
+.instax-strip { background:var(--cream); padding:10px 10px 18px; box-shadow:3px 6px 22px rgba(180,50,90,.15); display:flex;flex-direction:column;gap:5px;width:190px;position:relative;border-radius:2px; border:1px solid rgba(224,80,122,.12); }
+.strip-slot { width:100%;aspect-ratio:4/3;background:#fde4ef;position:relative;overflow:hidden; }
+.instax-label { font-family:'Nothing You Could Do',cursive;font-size:1rem;color:var(--inksoft);text-align:center;margin-top:3px;display:block; }
+
+/* ══ SCRAPBOOK ══ */
+.scrap-page { background:var(--rosepale); border:1px solid rgba(224,80,122,.2); padding:1.8rem 1.5rem 1.5rem; box-shadow:4px 6px 28px rgba(180,50,90,.18); position:relative;width:100%;max-width:380px;display:flex;flex-direction:column;gap:.9rem;border-radius:3px; }
+.scrap-ruled { position:absolute;inset:0;background-image:repeating-linear-gradient(transparent,transparent 27px,rgba(224,80,122,.08) 27px,rgba(224,80,122,.08) 28px);pointer-events:none;border-radius:3px; }
+.scrap-row { display:flex;gap:.7rem; }
+.scrap-slot { flex:1;aspect-ratio:1;background:rgba(224,80,122,.08);position:relative;overflow:hidden; }
+.scrap-slot.wide { flex:2; }
+.scrap-title { font-family:'Nothing You Could Do',cursive;font-size:1.45rem;text-align:center;color:var(--rose);position:relative;padding-top:.2rem; }
+.scrap-footer { display:flex;justify-content:space-between;align-items:flex-end;position:relative; }
+.scrap-sign { font-family:'Nothing You Could Do',cursive;font-size:1.1rem;color:var(--inksoft);transform:rotate(-2deg);display:inline-block; }
+
+/* ══ TAP HINT ══ */
+.tap-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  margin-top: 1.1rem;
+  background: linear-gradient(135deg, rgba(255,245,249,.95) 0%, rgba(253,220,238,.9) 100%);
+  border: 1.5px solid rgba(224,80,122,.22);
+  border-radius: 50px;
+  padding: .55rem 1.2rem .55rem .9rem;
+  box-shadow: 0 3px 16px rgba(200,50,100,.12), 0 0 0 4px rgba(244,174,197,.18);
+  font-family: 'Nothing You Could Do', cursive;
+  font-size: 1.15rem;
+  color: var(--inksoft);
+  animation: hintPulse 2.4s ease-in-out infinite;
+  cursor: pointer;
+  max-width: 260px;
+}
+.tap-hint-finger {
+  font-size: 1.4rem;
+  animation: fingerBounce 1.2s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: bottom center;
+}
+@keyframes fingerBounce {
+  0%,100% { transform: translateY(0) rotate(-10deg); }
+  50%      { transform: translateY(-5px) rotate(5deg); }
+}
+@keyframes hintPulse {
+  0%,100% { box-shadow: 0 3px 16px rgba(200,50,100,.12), 0 0 0 4px rgba(244,174,197,.18); }
+  50%      { box-shadow: 0 4px 22px rgba(200,50,100,.22), 0 0 0 7px rgba(244,174,197,.28); }
+}
+
+/* ── FOOTER ── */
+.footer { background:linear-gradient(0deg,#fce8f0,var(--bg2)); text-align:center;padding:3rem 1rem 5rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;color:var(--inksoft); }
+.footer-deco { font-size:2.2rem;margin-bottom:.6rem;animation:heartbeat 2.2s ease infinite;display:block; }
+.footer-text { display:block; }
+
+.bow { position:absolute; font-size:2rem; pointer-events:none; animation:wiggle 3s ease-in-out infinite; opacity:.7; }
+
+.section-deco {
+  display:flex; align-items:center; justify-content:center; gap:1rem;
+  width:100%; max-width:380px;
+  font-family:'Nothing You Could Do',cursive; font-size:1.1rem; color:var(--rosemid);
+}
+.sdline { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--roselight),transparent); }
+
+.clip-svg { position:absolute;z-index:15;filter:drop-shadow(1px 2px 3px rgba(180,50,90,.2)); }
+
+/* ════════════════════════════════════
+   ✉️ МОДАЛЬНОЕ ПИСЬМО
+════════════════════════════════════ */
+.letter-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(120, 20, 50, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+.letter-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.letter-modal {
+  background: #fffaf9;
+  border: 1.5px solid rgba(224,80,122,.2);
+  border-radius: 6px;
+  padding: 2.2rem 2rem 2.4rem;
+  max-width: 360px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 16px 60px rgba(180,50,90,.28);
+  background-image: repeating-linear-gradient(
+    transparent, transparent 31px,
+    rgba(224,80,122,.1) 31px, rgba(224,80,122,.1) 32px
+  );
+  transform: scale(.88) translateY(30px);
+  transition: transform .45s cubic-bezier(.4,0,.2,1) .05s;
+}
+.letter-modal-overlay.open .letter-modal {
+  transform: scale(1) translateY(0);
+}
+
+/* конвертный клапан-декор сверху */
+.letter-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -1px; right: -1px;
+  border-left: 182px solid transparent;
+  border-right: 182px solid transparent;
+  border-top: 55px solid rgba(244,174,197,.35);
+  pointer-events: none;
+  border-radius: 6px 6px 0 0;
+}
+
+.lm-close {
+  position: absolute;
+  top: -14px; right: -14px;
+  width: 32px; height: 32px;
+  background: #fff5f9;
+  border: 1.5px solid rgba(224,80,122,.3);
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--inksoft);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(180,50,90,.18);
+  font-family: 'Caveat', cursive;
+  z-index: 10;
+  transition: background .2s;
+}
+.lm-close:hover { background: #fde8f0; }
+
+.lm-seal {
+  display: block;
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: .6rem;
+  margin-top: 1.4rem;
+}
+
+.ltr-date {
+  font-family: 'Nothing You Could Do', cursive;
+  font-size: 1rem;
+  color: var(--rosemid);
+  display: block;
+  margin-bottom: .5rem;
+}
+.ltr-greeting {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.7rem;
+  color: var(--rose2);
+  display: block;
+  margin-bottom: .8rem;
+}
+.ltr-body {
+  font-family: 'Nothing You Could Do', cursive;
+  font-size: 1.35rem;
+  line-height: 2;
+  color: var(--ink);
+  display: block;
+}
+.ltr-sign {
+  font-family: 'Nothing You Could Do', cursive;
+  font-size: 1.4rem;
+  color: var(--rose);
+  display: block;
+  text-align: right;
+  margin-top: 1rem;
+}
+.ltr-deco {
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: .4rem;
+  margin-top: .6rem;
+  color: var(--roselight);
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     🎵 АУДИО — вставь свой файл сюда!
+     Замени "your-song.mp3" на имя своего файла
+     (положи mp3 рядом с index.html)
+     autoplay начнёт играть при первом клике
+════════════════════════════════════════ -->
+<audio id="bgAudio" loop preload="auto">
+  <source src="your-song.mp3" type="audio/mpeg">
+</audio>
+<!-- ════════════════════════════════════ -->
+
+<!-- ═══════════ МОДАЛЬНОЕ ПИСЬМО ═══════════ -->
+<div class="letter-modal-overlay" id="letterModal">
+  <div class="letter-modal">
+    <button class="lm-close" id="letterClose">✕</button>
+    <span class="lm-seal">🌹</span>
+
+    <!-- ✏️ Замени дату -->
+    <span class="ltr-date">12.03.2026</span>
+
+    <!-- ✏️ Замени имя -->
+    <span class="ltr-greeting">Дорогая Shugyla ♡</span>
+
+    <!-- ✏️ Замени текст поздравления -->
+    <span class="ltr-body">
+      Пусть этот особенный день<br>
+      будет наполнен теплом,<br>
+      смехом и всем, что делает<br>
+      тебя счастливой.<br><br>
+      Ты заслуживаешь самого<br>
+      лучшего — всегда ♡
+    </span>
+
+    <!-- ✏️ Замени подпись -->
+    <span class="ltr-sign">С любовью, Арайлым 🌸</span>
+    <span class="ltr-deco">🌷 ✨ 🌷</span>
+  </div>
+</div>
+<!-- ════════════════════════════════════════ -->
+
+<div class="deco-float" style="left:3%;top:15%;--fd:7s;--fdl:0s;--fr:-8deg;">🌸</div>
+<div class="deco-float" style="right:4%;top:22%;--fd:9s;--fdl:1s;--fr:6deg;">🌷</div>
+<div class="deco-float" style="left:7%;top:55%;--fd:8s;--fdl:2s;--fr:3deg;">✨</div>
+<div class="deco-float" style="right:5%;top:60%;--fd:10s;--fdl:.5s;--fr:-5deg;">🎀</div>
+<div class="deco-float" style="left:2%;top:80%;--fd:7s;--fdl:1.5s;--fr:10deg;">🌺</div>
+<div class="deco-float" style="right:3%;top:85%;--fd:9s;--fdl:3s;--fr:-9deg;">💐</div>
+
+<section class="hero" id="hero">
+  <div class="bow" style="top:4rem;left:1rem;transform:rotate(-15deg);">🎀</div>
+  <div class="bow" style="top:4rem;right:1rem;transform:rotate(15deg);animation-delay:.8s;">🎀</div>
+  <div class="bow" style="bottom:6rem;left:1.5rem;transform:rotate(10deg);animation-delay:.4s;font-size:1.4rem;">🌸</div>
+  <div class="bow" style="bottom:6rem;right:1.5rem;transform:rotate(-10deg);animation-delay:1.2s;font-size:1.4rem;">🌷</div>
+
+  <span class="hero-eyebrow">✦ поздравление ✦</span>
+  <h1 class="hero-title">С Днём<br>Рождения</h1>
+  <span class="hero-name">— Shugyla —</span>
+  <div class="hero-line">
+    <div class="hline"></div>
+    <span style="font-size:.9rem;">🌸</span>
+    <div class="hline"></div>
+  </div>
+  <span class="hero-sub">Пусть этот день сияет так же ярко, как ты</span>
+  <div style="margin-top:1rem;opacity:0;animation:fadeUp .8s 1.2s forwards;font-size:1.6rem;letter-spacing:.5rem;">🌷🌸🌺🌷🌸</div>
+  <div class="scroll-hint" onclick="document.querySelector('.frames-section').scrollIntoView({behavior:'smooth'})">
+    листай вниз <div class="arrow-down"></div>
+  </div>
+</section>
+
+<section class="frames-section">
+
+  <div class="section-deco">
+    <div class="sdline"></div>
+    <span>🌸 воспоминания 🌸</span>
+    <div class="sdline"></div>
+  </div>
+
+  <!-- 1. ПОЛАРОИД -->
+  <div class="reveal" style="--rot:-2.5deg;position:relative;display:flex;flex-direction:column;align-items:center;">
+    <div class="tape tape-pink" style="top:-11px;left:50%;margin-left:-36px;width:72px;height:20px;transform:rotate(-3deg);z-index:20;"></div>
+    <span class="heart-sticker" style="top:-22px;right:14px;transform:rotate(15deg);">🩷</span>
+    <span class="heart-sticker" style="bottom:-24px;left:10px;transform:rotate(-12deg);font-size:1.1rem;">🌸</span>
+    <div class="polaroid">
+      <div class="photo-wrap">
+        <img class="photo-frame" src="1.JPG" alt="фото 1">
+      </div>
+      <div class="pol-caption">with love ♡</div>
+    </div>
+    <span class="frame-caption">полароид на память</span>
+  </div>
+
+  <div class="section-deco"><div class="sdline"></div><span>🎀</span><div class="sdline"></div></div>
+
+  <!-- 2. ПЛЁНКА -->
+  <div class="reveal" style="--rot:1.8deg;position:relative;display:flex;flex-direction:column;align-items:center;width:100%;max-width:360px;">
+    <div class="tape tape-lilac" style="top:-10px;left:16px;width:60px;height:18px;transform:rotate(-5deg);z-index:20;"></div>
+    <div class="tape tape-lilac" style="top:-10px;right:16px;width:60px;height:18px;transform:rotate(5deg);z-index:20;"></div>
+    <span class="heart-sticker" style="bottom:-22px;right:12px;transform:rotate(12deg);">💗</span>
+    <div class="film-wrap">
+      <div class="film-holes"><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div></div>
+      <div class="film-photo">
+        <img class="photo-frame" src="2.JPG" alt="фото 2">
+      </div>
+      <div class="film-holes"><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div><div class="fhole"></div></div>
+    </div>
+    <span class="frame-caption">твоя лучшая роль — быть собой 🎬</span>
+  </div>
+
+  <div class="section-deco"><div class="sdline"></div><span>🌷 с нежностью 🌷</span><div class="sdline"></div></div>
+
+  <!-- 3. ЗАПИСНАЯ КАРТОЧКА -->
+  <div class="reveal" style="--rot:2.2deg;position:relative;display:flex;flex-direction:column;align-items:center;">
+    <svg class="clip-svg" width="24" height="48" viewBox="0 0 24 48" style="position:absolute;top:-18px;left:12px;transform:rotate(-8deg);">
+      <path d="M12 2 C6 2 2 6 2 12 L2 38 C2 44 7 47 12 47 C17 47 22 44 22 38 L22 14 C22 9 18 6 14 6 C10 6 7 9 7 14 L7 36 C7 39 9 41 12 41 C15 41 17 39 17 36 L17 16" fill="none" stroke="rgba(224,80,122,.5)" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <div class="tape tape-mint" style="position:absolute;top:28px;right:-10px;width:52px;height:16px;transform:rotate(90deg);z-index:15;"></div>
+    <span class="heart-sticker" style="bottom:-20px;right:6px;transform:rotate(10deg);">🩷</span>
+    <span class="heart-sticker" style="top:-20px;right:6px;transform:rotate(-8deg);font-size:1.1rem;">✨</span>
+    <div class="note-card">
+      <div class="note-ruled"></div>
+      <div class="note-photo">
+        <img class="photo-frame" src="3.JPG" alt="фото 3">
+      </div>
+      <div class="note-text">
+        Пусть каждый день будет<br>таким же ярким,<br>как ты сама ♡
+      </div>
+      <div class="stamp"><span>🌷</span>LOVE</div>
+    </div>
+    <span class="frame-caption">записка с сердцем</span>
+  </div>
+
+  <div class="section-deco"><div class="sdline"></div><span>🎀</span><div class="sdline"></div></div>
+
+  <!-- 4. КОНВЕРТ С ФОТО — клик открывает письмо -->
+  <div class="reveal" style="--rot:-1.8deg;position:relative;display:flex;flex-direction:column;align-items:center;">
+    <div class="tape tape-pink" style="position:absolute;top:-11px;left:50%;margin-left:-36px;width:72px;height:20px;transform:rotate(2deg);z-index:20;"></div>
+    <span class="heart-sticker" style="top:-20px;left:14px;transform:rotate(-18deg);font-size:1.1rem;">💛</span>
+    <span class="heart-sticker" style="bottom:-20px;right:14px;transform:rotate(14deg);font-size:1rem;">🌸</span>
+    <div class="envelope-card">
+      <!-- ↓ нажми на фото — откроется письмо -->
+      <div class="env-photo" id="envPhotoBtn">
+        <img class="photo-frame" src="4.JPG" alt="фото 4">
+        <div class="env-photo-hint">жми 💌</div>
+      </div>
+      <div style="margin-top:1rem;font-family:'Nothing You Could Do',cursive;font-size:1.3rem;color:var(--inksoft);text-align:center;">«Открой и улыбнись»</div>
+      <div class="env-wax">🌹</div>
+    </div>
+    <div class="tap-hint" onclick="document.getElementById('envPhotoBtn').click()">
+      <span class="tap-hint-finger">👆</span>
+      <span>нажми на фото 💌</span>
+    </div>
+    <span class="frame-caption" style="margin-top:.6rem;">письмо с любовью</span>
+  </div>
+
+  <div class="section-deco"><div class="sdline"></div><span>🌺 мгновения 🌺</span><div class="sdline"></div></div>
+
+  <!-- 5. ИНСТАКС -->
+  <div class="reveal" style="--rot:3.5deg;position:relative;display:flex;flex-direction:column;align-items:center;">
+    <svg class="clip-svg" width="22" height="44" viewBox="0 0 24 48" style="position:absolute;top:-16px;right:8px;transform:rotate(12deg);">
+      <path d="M12 2 C6 2 2 6 2 12 L2 38 C2 44 7 47 12 47 C17 47 22 44 22 38 L22 14 C22 9 18 6 14 6 C10 6 7 9 7 14 L7 36 C7 39 9 41 12 41 C15 41 17 39 17 36 L17 16" fill="none" stroke="rgba(224,80,122,.45)" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <div class="tape tape-mint" style="position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-1deg);width:100px;height:17px;z-index:20;"></div>
+    <span class="heart-sticker" style="top:-22px;left:10px;transform:rotate(-15deg);font-size:1rem;">🩷</span>
+    <span class="heart-sticker" style="bottom:-20px;right:6px;transform:rotate(8deg);font-size:1rem;">🌷</span>
+    <div class="instax-strip">
+      <div class="strip-slot">
+        <img class="photo-frame" src="5.png" alt="фото 5">
+      </div>
+      <div class="strip-slot">
+        <img class="photo-frame" src="6.jpg" alt="фото 6">
+      </div>
+      <span class="instax-label">best memories 🎀</span>
+    </div>
+    <span class="frame-caption">красива навсегда</span>
+  </div>
+
+  <div class="section-deco"><div class="sdline"></div><span>🎀</span><div class="sdline"></div></div>
+
+  <!-- 6. СКРАПБУК -->
+  <div class="reveal" style="--rot:-2deg;position:relative;display:flex;flex-direction:column;align-items:center;">
+    <svg class="clip-svg" width="28" height="54" viewBox="0 0 24 48" style="position:absolute;top:-26px;left:50%;transform:translateX(-50%) rotate(-5deg);z-index:20;">
+      <path d="M12 2 C6 2 2 6 2 12 L2 38 C2 44 7 47 12 47 C17 47 22 44 22 38 L22 14 C22 9 18 6 14 6 C10 6 7 9 7 14 L7 36 C7 39 9 41 12 41 C15 41 17 39 17 36 L17 16" fill="none" stroke="rgba(224,80,122,.4)" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+    <div class="tape tape-pink" style="position:absolute;top:40px;left:-10px;width:55px;height:16px;transform:rotate(90deg);z-index:15;"></div>
+    <span class="heart-sticker" style="bottom:-18px;right:12px;transform:rotate(12deg);font-size:1.6rem;">🩷</span>
+    <span class="heart-sticker" style="top:35px;right:-18px;transform:rotate(20deg);font-size:1.1rem;">✨</span>
+    <span class="heart-sticker" style="top:35px;left:-16px;transform:rotate(-15deg);font-size:1.1rem;">🌸</span>
+    <div class="scrap-page">
+      <div class="scrap-ruled"></div>
+      <div class="scrap-title">наши моменты ♡</div>
+      <div class="scrap-row">
+        <div class="scrap-slot wide">
+          <img class="photo-frame" src="7.jpg" alt="фото 7">
+        </div>
+        <div class="scrap-slot">
+          <img class="photo-frame" src="8.jpg" alt="фото 8">
+        </div>
+      </div>
+      <div class="scrap-row">
+        <div class="scrap-slot">
+          <img class="photo-frame" src="9.jpg" alt="фото 9">
+        </div>
+        <div class="scrap-slot wide">
+          <img class="photo-frame" src="10.jpg" alt="фото 10">
+        </div>
+      </div>
+      <div class="scrap-footer">
+        <span class="scrap-sign">с любовью 🎀</span>
+        <span style="font-size:1.4rem;transform:rotate(10deg);display:inline-block;animation:wiggle 3s ease-in-out infinite;">🍓</span>
+      </div>
+    </div>
+    <span class="frame-caption">страница нашей истории</span>
+  </div>
+
+  <div class="section-deco" style="margin-top:2rem;">
+    <div class="sdline"></div><span>🌸🌷🌺🌸🌷</span><div class="sdline"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-deco">🌸</span>
+  <span style="font-size:1.4rem;letter-spacing:.4rem;display:block;margin-bottom:.6rem;color:var(--roselight);">🎀 ✨ 🎀</span>
+  <span class="footer-text">Счастья, смеха и любви всегда и во всём ♡</span>
+</footer>
+
+<script>
+// ── Sparks ──
+const hero = document.getElementById('hero');
+const colours = ['#f4aec5','#e8608a','#fde0ee','#eb7fa0','#d43070'];
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('div');
+  s.className = 'spark';
+  const sz = Math.random() < .25 ? 4 : 2;
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;background:${colours[Math.floor(Math.random()*colours.length)]};--d:${3+Math.random()*5}s;--dl:${Math.random()*7}s`;
+  hero.appendChild(s);
+}
+// ── Petals ──
+const petals = ['🌸','🌷','✨','🩷','🌺'];
+for (let i = 0; i < 12; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = petals[i % petals.length];
+  p.style.cssText = `left:${3+Math.random()*94}%;bottom:${-5+Math.random()*25}%;--pd:${7+Math.random()*8}s;--pdl:${Math.random()*9}s;font-size:${.7+Math.random()*.8}rem`;
+  hero.appendChild(p);
+}
+// ── Scroll reveal ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── Аудио — запуск при первом клике на любое место ──
+const audio = document.getElementById('bgAudio');
+let audioStarted = false;
+document.addEventListener('click', () => {
+  if (!audioStarted) {
+    audio.play().catch(() => {});
+    audioStarted = true;
+  }
+}, { once: false });
+
+// ── Модальное письмо — открывается при клике на фото ──
+const modal = document.getElementById('letterModal');
+const envBtn = document.getElementById('envPhotoBtn');
+const closeBtn = document.getElementById('letterClose');
+
+envBtn.addEventListener('click', () => {
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+closeBtn.addEventListener('click', () => {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+});
+modal.addEventListener('click', e => {
+  if (e.target === modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>
